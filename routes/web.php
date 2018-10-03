@@ -38,7 +38,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::post('/contact/store/', 'HomeController@contact');
-
+Route::post('/check_subscription', 'HomeController@check_subscription');
+Route::post('/subscription', 'HomeController@add_subscription');
 
 Route::group(['middleware' => 'auth'], function () {
   Route::post('/change/password', 'HomeController@update_password');
