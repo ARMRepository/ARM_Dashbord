@@ -15,7 +15,8 @@ use App\KycDocument;
 use App\Coinadmin;
 use App\Contact;
 use App\NewsletterSubscription;
-use App\Mail\SendMessage;
+use Mail;
+
 
 class AdminController extends Controller
 {
@@ -282,13 +283,21 @@ class AdminController extends Controller
     }
     public function send_newsletter(Request $request){
         //dd($request->all());
-        $this->validate($request,[
-            'message' => 'required',
-        ]);
-        if($request->has('subscription_email_id') && !empty($request->has('subscription_email_id'))){
-            foreach($request->subscription_email_id as $email){
-                \Mail::to('aarnavinc@gmail.com')->send(new SendMessage($email));
-            }
-        }
+        // $this->validate($request,[
+        //     'message' => 'required',
+        // ]);
+        // if($request->has('subscription_email_id') && !empty($request->has('subscription_email_id'))){
+        //     foreach($request->subscription_email_id as $email){
+        //         Mail::send('emails.send', ['title' => $title, 'content' => $content], function ($message)
+        //         {
+        //
+        //             $message->from('me@gmail.com', 'Christian Nwamba');
+        //
+        //             $message->to('chrisn@scotch.io');
+        //
+        //         });
+        //     }
+        // }
+        return back()->with('flash_error', trans('api.something_went_wrong'));
     }
 }
