@@ -10,7 +10,7 @@
 
 			<h5 style="margin-bottom: 2em;">Compose Newsletter</h5>
 
-            <form class="form-horizontal" action="{{url('/send/newsletter')}}" method="POST" role="form">
+            <form class="form-horizontal" action="{{url('/coinadmin/send/newsletter')}}" method="POST" role="form">
             	{{csrf_field()}}
 
             	<div class="form-group row">
@@ -22,7 +22,7 @@
                 <tbody>
                 @foreach($newsletters as $index => $newsletter)
                     <tr>
-                        <td><input type="checkbox" name="subscription_email_id[]"></td>
+                        <td><input type="checkbox" name="subscription_email_id[]" value="{{$newsletter->email}}"></td>
                         <td>{{$newsletter->email}}</td>
                     </tr>
                 @endforeach

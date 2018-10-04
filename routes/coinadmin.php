@@ -13,6 +13,7 @@
 
 Route::get('/home', 'AdminController@dashboard')->name('home');
 Route::get('/newsletter', 'AdminController@newsletter');
+Route::post('/send/newsletter', 'AdminController@send_newsletter');
 Route::get('/subscription_status/{id}/{status}', 'AdminController@subscription_status');
 Route::get('/compose_newsletter', 'AdminController@compose_newsletter');
 

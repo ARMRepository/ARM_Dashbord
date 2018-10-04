@@ -20,6 +20,7 @@ class SendMessage extends Mailable
     {
         //
         $this->data=$request;
+        //dd($this->data);
     }
 
     /**

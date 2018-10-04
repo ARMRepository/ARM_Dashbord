@@ -15,6 +15,7 @@ use App\KycDocument;
 use App\Coinadmin;
 use App\Contact;
 use App\NewsletterSubscription;
+use App\Mail\SendMessage;
 
 class AdminController extends Controller
 {
@@ -278,5 +279,16 @@ class AdminController extends Controller
     public function compose_newsletter(){
         $newsletters = NewsletterSubscription::orderBy('id', 'desc')->get();
         return view('coinadmin.newsletter.compose', compact('newsletters'));
+    }
+    public function send_newsletter(Request $request){
+        //dd($request->all());
+        $this->validate($request,[
+            'message' => 'required',
+        ]);
+        if($request->has('subscription_email_id') && !empty($request->has('subscription_email_id'))){
+            foreach($request->subscription_email_id as $email){
+                \Mail::to('aarnavinc@gmail.com')->send(new SendMessage($email));
+            }
+        }
     }
 }
