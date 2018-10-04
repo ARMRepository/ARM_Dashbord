@@ -18,6 +18,7 @@ use App\Passbook;
 use App\Promocode;
 use App\KycDocument;
 use App\TransactionHistory;
+use App\NewsletterSubscription;
 use App\Mail\SendMessage;
 
 class HomeController extends Controller
@@ -29,7 +30,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => 'contact']);
+        $this->middleware('auth', ['except' => array('contact','check_subscription','add_subscription')]);
     }
 
     /**
@@ -51,7 +52,7 @@ class HomeController extends Controller
             $accredited = 1;
         }
 
-        
+
         if(empty(Auth::user()->name) || empty(Auth::user()->email) || empty(Auth::user()->mobile) || empty(Auth::user()->country) || empty(Auth::user()->state) || empty(Auth::user()->city) || empty(Auth::user()->address) || empty(Auth::user()->zip)) {
             $empty = 1;
         } else {
@@ -485,7 +486,7 @@ class HomeController extends Controller
             $Transaction->ico = $request->amount_ctc;
             $Transaction->ico_price = Setting::get('coin_price');
             $Transaction->save();
-           
+
             $user->save();
 
             if($request->cointype=='XRP'){
@@ -515,7 +516,7 @@ class HomeController extends Controller
                 $passbook->user_id = $transaction->user_id;
                 $passbook->ico = $discount_bnc;
                 $passbook->via = 'BONUS';
-                $passbook->save(); 
+                $passbook->save();
             }
             if($user->referral_by != ''){
                 $discount_ref = $transaction->ico*(Setting::get('referral_bonus')/100);
@@ -528,7 +529,7 @@ class HomeController extends Controller
                 $passbook->user_id = $user->referral_by;
                 $passbook->ico = $discount_ref;
                 $passbook->via = 'REFERRAL';
-                $passbook->save(); 
+                $passbook->save();
             }
             if($transaction->promocode!=''){
                 $promo = Promocode::where('promo_code', $transaction->promocode)->first();
@@ -538,10 +539,10 @@ class HomeController extends Controller
                 $passbook->user_id = $transaction->user_id;
                 $passbook->ico = $discount_promo;
                 $passbook->via = 'PROMOCODE';
-                $passbook->save(); 
+                $passbook->save();
             }
 
-            
+
             $user->ico_balance += $transaction->ico;
             $user->ico_bonus = $discount;
             $user->save();
@@ -566,11 +567,31 @@ class HomeController extends Controller
 
             return redirect('https://aarnav.io/contact-us.html');
 
-        } 
+        }
 
         catch (Exception $e) {
             return redirect('https://aarnav.io/contact-us.html');
         }
+    }
+    public function check_subscription(Request $request){
+        $this->validate($request, [
+            'email' => 'email',
+        ]);
+        $check_exists = NewsletterSubscription::where('email',$request->email)->first();
+        if($check_exists){
+            return 1;
+        }
+        return 0;
+    }
+    public function add_subscription(Request $request){
+        $this->validate($request, [
+            'email' => 'email',
+        ]);
+        $subscription = new NewsletterSubscription();
+        $subscription->email = $request->email;
+        $subscription->status = 0;
+        $subscription->save();
+        return response()->json(['status' => 1], 200);
     }
 
 }

@@ -1,5 +1,6 @@
 <?php
-
+header('Access-Control-Allow-Origin: *');
+header( 'Access-Control-Allow-Headers: Authorization, Content-Type' );
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,6 +11,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::post('/contact/store/', 'HomeController@contact');
+Route::post('/check_subscription', 'HomeController@check_subscription');
+Route::post('/subscription', 'HomeController@add_subscription');
 
 Route::group(['prefix' => 'coinadmin'], function () {
   Route::get('/login', 'CoinadminAuth\LoginController@showLoginForm')->name('login');
@@ -37,9 +42,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::post('/contact/store/', 'HomeController@contact');
-Route::post('/check_subscription', 'HomeController@check_subscription');
-Route::post('/subscription', 'HomeController@add_subscription');
+
 
 Route::group(['middleware' => 'auth'], function () {
   Route::post('/change/password', 'HomeController@update_password');
