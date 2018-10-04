@@ -49,13 +49,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <div class="">
                                 <div class="checkbox">
                                     <div class="g-recaptcha" data-sitekey="6LeipUsUAAAAABAnNhG5giTpQjJhc661UZS7VTN0"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <div class="">
@@ -82,7 +82,7 @@
 @endsection
 
 @section('scripts')
-    <script>
+    <!-- <script>
     $("form").submit(function(event) {
 
        var recaptcha = $("#g-recaptcha-response").val();
@@ -91,5 +91,5 @@
           alert("Please check the recaptcha");
        }
     });
-    </script>
+    </script> -->
 @endsection
