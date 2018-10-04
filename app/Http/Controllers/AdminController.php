@@ -275,4 +275,8 @@ class AdminController extends Controller
         }
          return back()->with('flash_error', trans('api.something_went_wrong'));
     }
+    public function compose_newsletter(){
+        $newsletters = NewsletterSubscription::orderBy('id', 'desc')->get();
+        return view('coinadmin.newsletter.compose', compact('newsletters'));
+    }
 }

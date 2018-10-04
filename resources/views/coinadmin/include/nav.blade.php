@@ -120,6 +120,12 @@
 					<span class="s-text">Subscription List</span>
 				</a>
 			</li>
+			<li>
+				<a href="{{ url('/coinadmin/compose_newsletter') }}" class="waves-effect  waves-light">
+					<span class="s-icon"><i class="ti-user"></i></span>
+					<span class="s-text">Send Newsletter</span>
+				</a>
+			</li>
 			<li class="menu-title">Account</li>
 			<li>
 				<a href="{{ route('coinadmin.profile') }}" class="waves-effect  waves-light">
