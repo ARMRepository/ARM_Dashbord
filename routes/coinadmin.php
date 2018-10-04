@@ -12,6 +12,8 @@
 
 
 Route::get('/home', 'AdminController@dashboard')->name('home');
+Route::get('/newsletter', 'AdminController@newsletter');
+Route::get('/subscription_status/{id}/{status}', 'AdminController@subscription_status');
 
 Route::resource('cointype', 'CoinTypeResource');
 Route::get('cointype/{id}/enableStatus', 'CoinTypeResource@enableStatus')->name('cointype.enableStatus');

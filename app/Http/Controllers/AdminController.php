@@ -14,6 +14,7 @@ use App\User;
 use App\KycDocument;
 use App\Coinadmin;
 use App\Contact;
+use App\NewsletterSubscription;
 
 class AdminController extends Controller
 {
@@ -74,14 +75,14 @@ class AdminController extends Controller
                 'coin_address' => 'required',
             ]);
 
-        
+
         if($request->hasFile('site_icon')) {
 
             $site_icon = $request->site_icon->store('settings');
             Setting::set('site_icon', $site_icon);
         }
 
-       
+
 
         if($request->hasFile('site_logo')) {
             $site_logo = $request->site_logo->store('settings');
@@ -103,12 +104,12 @@ class AdminController extends Controller
         Setting::set('referral_bonus', $request->referral_bonus);
         Setting::set('coin_address', $request->coin_address);
         Setting::set('kyc_approval', $request->kyc_approval == 'on' ? 1 : 0 );
-      
+
         Setting::save();
-        
+
         return back()->with('flash_success','Settings Updated Successfully');
 
-    	
+
     }
 
      public function historySuccess($id)
@@ -188,9 +189,9 @@ class AdminController extends Controller
             $admin = Auth::guard('coinadmin')->user();
             $admin->name = $request->name;
             $admin->email = $request->email;
-            
+
             if($request->hasFile('picture')){
-                $admin->picture = $request->picture->store('admin/profile');  
+                $admin->picture = $request->picture->store('admin/profile');
             }
             $admin->save();
 
@@ -200,7 +201,7 @@ class AdminController extends Controller
         catch (Exception $e) {
              return back()->with('flash_error','Something Went Wrong!');
         }
-        
+
     }
 
     /**
@@ -260,5 +261,18 @@ class AdminController extends Controller
         $contacts = Contact::orderBy('id', 'desc')->get();
 
         return view('coinadmin.contact.index', compact('contacts'));
+    }
+    public function newsletter(){
+        $newsletters = NewsletterSubscription::orderBy('id', 'desc')->get();
+        return view('coinadmin.newsletter.index', compact('newsletters'));
+    }
+    public function subscription_status($id,$status){
+        $newsletters = NewsletterSubscription::where('id',$id)->first();
+        if($newsletters){
+            $newsletters->status = $status == 0 ? 1 : 0;
+            $newsletters->save();
+            return back()->with('flash_success', 'Status updated successfully');
+        }
+         return back()->with('flash_error', trans('api.something_went_wrong'));
     }
 }
