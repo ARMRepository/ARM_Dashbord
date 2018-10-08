@@ -287,7 +287,7 @@ class AdminController extends Controller
         ]);
         if($request->has('subscription_email_id') && !empty($request->has('subscription_email_id'))){
             foreach($request->subscription_email_id as $email){
-                Mail::send('coinadmin.email', ['data' => $request->message], function ($email,$message)
+                Mail::send('coinadmin.email', ['data' => $request->message], function ($message) use ($email)
                 {
                     $message->from('aarnavinc@gmail.com', 'Aarnav');
                     $message->to($email);
