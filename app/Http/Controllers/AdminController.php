@@ -266,7 +266,7 @@ class AdminController extends Controller
         return view('coinadmin.contact.index', compact('contacts'));
     }
     public function newsletter(){
-        $newsletters = NewsletterSubscription::where('status',0)->orderBy('id', 'desc')->get();
+        $newsletters = NewsletterSubscription::orderBy('id', 'desc')->get();
         return view('coinadmin.newsletter.index', compact('newsletters'));
     }
     public function subscription_status($id,$status){

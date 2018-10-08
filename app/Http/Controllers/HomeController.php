@@ -20,6 +20,7 @@ use App\KycDocument;
 use App\TransactionHistory;
 use App\NewsletterSubscription;
 use App\Mail\SendMessage;
+use App\ContactUs;
 
 class HomeController extends Controller
 {
@@ -591,6 +592,23 @@ class HomeController extends Controller
         $subscription->email = $request->email;
         $subscription->status = 0;
         $subscription->save();
+        return response()->json(['status' => 1], 200);
+    }
+    public function contact_us(){
+        $this->validate($request,[
+            'name' => 'required',
+            'email' => 'email'
+            'phone' => 'required|numeric'
+            'country' => 'required'
+            'message' => 'required'
+        ]);
+        $contact = new ContactUs();
+        $contact->email = $request->email;
+        $contact->name = $request->name;
+        $contact->phone = $request->phone;
+        $contact->country = $request->country;
+        $contact->message = $request->message;
+        $contact->save();
         return response()->json(['status' => 1], 200);
     }
 

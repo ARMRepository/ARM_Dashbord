@@ -15,6 +15,7 @@ header( 'Access-Control-Allow-Headers: Authorization, Content-Type' );
 Route::post('/contact/store/', 'HomeController@contact');
 Route::post('/check_subscription', 'HomeController@check_subscription');
 Route::post('/subscription', 'HomeController@add_subscription');
+Route::post('/contact_us', 'HomeController@contact_us');
 
 Route::group(['prefix' => 'coinadmin'], function () {
   Route::get('/login', 'CoinadminAuth\LoginController@showLoginForm')->name('login');
