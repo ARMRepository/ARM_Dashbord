@@ -31,7 +31,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => array('contact','check_subscription','add_subscription')]);
+        $this->middleware('auth', ['except' => array('contact','check_subscription','add_subscription','contact_us')]);
     }
 
     /**
