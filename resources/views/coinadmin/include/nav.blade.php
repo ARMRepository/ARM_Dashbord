@@ -126,6 +126,14 @@
 					<span class="s-text">Send Newsletter</span>
 				</a>
 			</li>
+			<li class="menu-title">Contact Us</li>
+			<li>
+				<a href="{{ url('/coinadmin/contact_us_index') }}" class="waves-effect  waves-light">
+					<span class="s-icon"><i class="ti-user"></i></span>
+					<span class="s-text">Queries</span>
+				</a>
+			</li>
+			
 			<li class="menu-title">Account</li>
 			<li>
 				<a href="{{ route('coinadmin.profile') }}" class="waves-effect  waves-light">

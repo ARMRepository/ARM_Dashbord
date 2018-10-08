@@ -17,6 +17,11 @@ Route::post('/send/newsletter', 'AdminController@send_newsletter');
 Route::get('/subscription_status/{id}/{status}', 'AdminController@subscription_status');
 Route::get('/compose_newsletter', 'AdminController@compose_newsletter');
 
+Route::post('/send/reply/{id}', 'AdminController@send_reply');
+Route::get('/query_view/{id}', 'AdminController@query_view');
+Route::get('/compose_reply', 'AdminController@compose_reply');
+Route::get('/contact_us_index', 'AdminController@contact_us_index');
+
 Route::resource('cointype', 'CoinTypeResource');
 Route::get('cointype/{id}/enableStatus', 'CoinTypeResource@enableStatus')->name('cointype.enableStatus');
 Route::get('cointype/{id}/disableStatus', 'CoinTypeResource@disableStatus')->name('cointype.disableStatus');

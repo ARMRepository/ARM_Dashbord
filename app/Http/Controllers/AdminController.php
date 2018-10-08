@@ -15,6 +15,7 @@ use App\KycDocument;
 use App\Coinadmin;
 use App\Contact;
 use App\NewsletterSubscription;
+use App\ContactUs;
 use Mail;
 
 
@@ -265,7 +266,7 @@ class AdminController extends Controller
         return view('coinadmin.contact.index', compact('contacts'));
     }
     public function newsletter(){
-        $newsletters = NewsletterSubscription::orderBy('id', 'desc')->get();
+        $newsletters = NewsletterSubscription::where('status',0)->orderBy('id', 'desc')->get();
         return view('coinadmin.newsletter.index', compact('newsletters'));
     }
     public function subscription_status($id,$status){
@@ -297,6 +298,37 @@ class AdminController extends Controller
             return back()->with('flash_success', 'Newsletter send successfully');
         }else{
             return back()->with('flash_error', trans('api.something_went_wrong'));
+        }
+    }
+    public function contact_us_index(){
+        $queries = ContactUs::orderBy('is_replied', 'asc')->get();
+        return view('coinadmin.contactus.index', compact('queries'));
+    }
+    public function query_view($id){
+        if($id){
+            $query = ContactUs::where('id',$id)->first();
+            return view('coinadmin.contactus.compose', compact('query'));
+        }
+    }
+    public function send_reply($id,Request $request){
+        $this->validate($request,[
+            'reply' => 'required',
+        ]);
+        $query = ContactUs::where('id',$id)->first();
+        if($query){
+            $email = $query->email;
+            $query->is_replied = 1;
+            $query->reply = $request->reply;
+            $query->save();
+            Mail::send('coinadmin.email', ['data' => $request->reply], function ($message) use ($email)
+            {
+                $message->from('aarnavinc@gmail.com', 'Aarnav');
+                $message->subject('Contact Us');
+                $message->to($email);
+            });
+            return back()->with('flash_success', 'Reply send successfully');
+        }else{
+            return back()->with('flash_error', 'Something Went Wrong');
         }
     }
 }
