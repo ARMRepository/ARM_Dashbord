@@ -282,22 +282,22 @@ class AdminController extends Controller
         return view('coinadmin.newsletter.compose', compact('newsletters'));
     }
     public function send_newsletter(Request $request){
+        $this->validate($request,[
+            'message' => 'required',
+        ]);
         //dd($request->all());
-        // $this->validate($request,[
-        //     'message' => 'required',
-        // ]);
-        // if($request->has('subscription_email_id') && !empty($request->has('subscription_email_id'))){
-        //     foreach($request->subscription_email_id as $email){
-        //         Mail::send('emails.send', ['title' => $title, 'content' => $content], function ($message)
-        //         {
-        //
-        //             $message->from('me@gmail.com', 'Christian Nwamba');
-        //
-        //             $message->to('chrisn@scotch.io');
-        //
-        //         });
-        //     }
-        // }
-        return back()->with('flash_error', trans('api.something_went_wrong'));
+        //if($request->has('subscription_email_id') && !empty($request->has('subscription_email_id'))){
+            //echo 'here';exit;
+            //foreach($request->subscription_email_id as $email){
+
+                Mail::send('coinadmin.email', ['data' => $request->message], function ($message)
+                {
+                    //echo 'here';exit;
+                    $message->from('g@gmail.com', 'Christian Nwamba');
+                    $message->to('sowjinpandian@gmail.com');
+                });
+            //}
+        //}
+        //return back()->with('flash_error', trans('api.something_went_wrong'));
     }
 }
