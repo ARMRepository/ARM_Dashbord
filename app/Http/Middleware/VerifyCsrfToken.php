@@ -15,5 +15,6 @@ class VerifyCsrfToken extends BaseVerifier
         '/contact/store',
         '/check_subscription',
         '/subscription',
+        '/contact_us',
     ];
 }
