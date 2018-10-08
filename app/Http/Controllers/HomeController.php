@@ -597,9 +597,9 @@ class HomeController extends Controller
     public function contact_us(){
         $this->validate($request,[
             'name' => 'required',
-            'email' => 'email'
-            'phone' => 'required|numeric'
-            'country' => 'required'
+            'email' => 'email',
+            'phone' => 'required|numeric',
+            'country' => 'required',
             'message' => 'required'
         ]);
         $contact = new ContactUs();
@@ -608,6 +608,7 @@ class HomeController extends Controller
         $contact->phone = $request->phone;
         $contact->country = $request->country;
         $contact->message = $request->message;
+        $contact->is_replied = 0;
         $contact->save();
         return response()->json(['status' => 1], 200);
     }
