@@ -594,7 +594,7 @@ class HomeController extends Controller
         $subscription->save();
         return response()->json(['status' => 1], 200);
     }
-    public function contact_us(){
+    public function contact_us(Request $request){
         $this->validate($request,[
             'name' => 'required',
             'email' => 'email',
