@@ -278,26 +278,24 @@ class AdminController extends Controller
          return back()->with('flash_error', trans('api.something_went_wrong'));
     }
     public function compose_newsletter(){
-        $newsletters = NewsletterSubscription::orderBy('id', 'desc')->get();
+        $newsletters = NewsletterSubscription::wheer('status',0)->orderBy('id', 'desc')->get();
         return view('coinadmin.newsletter.compose', compact('newsletters'));
     }
     public function send_newsletter(Request $request){
         $this->validate($request,[
             'message' => 'required',
         ]);
-        //dd($request->all());
-        //if($request->has('subscription_email_id') && !empty($request->has('subscription_email_id'))){
-            //echo 'here';exit;
-            //foreach($request->subscription_email_id as $email){
-
+        if($request->has('subscription_email_id') && !empty($request->has('subscription_email_id'))){
+            foreach($request->subscription_email_id as $email){
                 Mail::send('coinadmin.email', ['data' => $request->message], function ($message)
                 {
-                    //echo 'here';exit;
-                    $message->from('g@gmail.com', 'Christian Nwamba');
-                    $message->to('sowjinpandian@gmail.com');
+                    $message->from('aarnavinc@gmail.com', 'Aarnav');
+                    $message->to($email);
                 });
-            //}
-        //}
-        //return back()->with('flash_error', trans('api.something_went_wrong'));
+            }
+            return back()->with('flash_success', 'Newsletter send successfully');
+        }else{
+            return back()->with('flash_error', trans('api.something_went_wrong'));
+        }
     }
 }
