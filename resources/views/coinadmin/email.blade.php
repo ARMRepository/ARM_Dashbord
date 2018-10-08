@@ -34,7 +34,7 @@
         <div class="d-flex justify-content-center flex-column full-height ">
             <img height="50" src="{{ img(Setting::get('site_logo')) }}" alt="" />
             <div class="verify-sec text-center">
-                <h3>Email : {{ $data}}</h3>
+                <h3>{{$data}}</h3>
             </div>
         </div>
     </div>

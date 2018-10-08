@@ -290,6 +290,7 @@ class AdminController extends Controller
                 Mail::send('coinadmin.email', ['data' => $request->message], function ($message) use ($email)
                 {
                     $message->from('aarnavinc@gmail.com', 'Aarnav');
+                    $message->subject('NewsLetter');
                     $message->to($email);
                 });
             }
