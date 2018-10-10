@@ -6,9 +6,7 @@
 
     <div class="content-area py-1">
         <div class="container-fluid">
-
             <div class="box box-block bg-white">
-
                 <h5 class="mb-1">Newsletter Subscription</h5>
                 <table class="table table-striped table-bordered dataTable" id="table-2">
                     <thead>

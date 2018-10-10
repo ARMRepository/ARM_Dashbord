@@ -1,5 +1,4 @@
 <?php
-
 function currency($value = '')
 {
 	if($value == ""){

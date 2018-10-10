@@ -17,6 +17,7 @@ use App\Contact;
 use App\NewsletterSubscription;
 use App\ContactUs;
 use Mail;
+use App\Helpers\Helper;
 
 
 class AdminController extends Controller
@@ -81,19 +82,19 @@ class AdminController extends Controller
 
         if($request->hasFile('site_icon')) {
 
-            $site_icon = $request->site_icon->store('settings');
+            $site_icon = Helper::upload_picture($request->site_icon);
             Setting::set('site_icon', $site_icon);
         }
 
 
 
         if($request->hasFile('site_logo')) {
-            $site_logo = $request->site_logo->store('settings');
+            $site_logo = Helper::upload_picture($request->site_logo);
             Setting::set('site_logo', $site_logo);
         }
 
         if($request->hasFile('site_email_logo')) {
-            $site_email_logo = $request->site_email_logo->store('settings');
+            $site_email_logo = Helper::upload_picture($request->site_email_logo);
             Setting::set('site_email_logo', $site_email_logo);
         }
 
@@ -194,7 +195,7 @@ class AdminController extends Controller
             $admin->email = $request->email;
 
             if($request->hasFile('picture')){
-                $admin->picture = $request->picture->store('admin/profile');
+                $admin->picture = Helper::upload_picture($request->picture);
             }
             $admin->save();
 
