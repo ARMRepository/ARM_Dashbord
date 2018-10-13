@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Helpers;
 
@@ -17,9 +17,7 @@ class Helper
             $ext = $picture->getClientOriginalExtension();
             $picture->move(public_path() . "/uploads", $file_name . "." . $ext);
             $local_url = $file_name . "." . $ext;
-
             $s3_url = url('/').'/uploads/'.$local_url;
-            
             return $s3_url;
         }
         return "";

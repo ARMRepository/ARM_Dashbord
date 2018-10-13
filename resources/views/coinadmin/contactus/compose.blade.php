@@ -38,14 +38,17 @@
                     <div class="form-group row">
     					<label for="old_password" class="col-xs-12 col-form-label"> Reply : </label>
     					<div class="col-xs-10">
-    						{{$query->reply}}
+    					<?php echo 	html_entity_decode($query->reply);?>
     					</div>
     				</div>
                 @else
             	<div class="form-group row">
 					<label for="old_password" class="col-xs-12 col-form-label">Reply</label>
 					<div class="col-xs-10">
-						<input class="form-control" type="text" name="reply" id="reply" placeholder="Message">
+                        <textarea class="form-control" name="reply" id="summary-ckeditor"></textarea>
+                        <script>
+                            CKEDITOR.replace( 'summary-ckeditor' );
+                        </script>
 					</div>
 				</div>
 				<div class="form-group row">
@@ -61,3 +64,8 @@
 </div>
 
 @endsection
+
+<script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
+<script>
+    CKEDITOR.replace( 'textarea' );
+</script>

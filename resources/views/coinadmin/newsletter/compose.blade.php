@@ -12,14 +12,15 @@
 
             <form class="form-horizontal" action="{{url('/coinadmin/send/newsletter')}}" method="POST" role="form">
             	{{csrf_field()}}
-
-            	<div class="form-group row">
-					<label for="old_password" class="col-xs-12 col-form-label">Message</label>
+                <div class="form-group row">
+					<label for="message" class="col-xs-12 col-form-label">Reply</label>
 					<div class="col-xs-10">
-						<input class="form-control" type="text" name="message" id="message" placeholder="Message">
+                        <textarea class="form-control" name="message" id="summary-ckeditor"></textarea>
+                        <script>
+                            CKEDITOR.replace( 'summary-ckeditor' );
+                        </script>
 					</div>
 				</div>
-                <tbody>
                 @foreach($newsletters as $index => $newsletter)
                     <tr>
                         <td><input type="checkbox" name="subscription_email_id[]" value="{{$newsletter->email}}"></td>
@@ -43,3 +44,8 @@
 </div>
 
 @endsection
+
+<script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
+<script>
+    CKEDITOR.replace( 'textarea' );
+</script>
