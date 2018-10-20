@@ -10,7 +10,7 @@
 //     return view('coinadmin.home');
 // })->name('home');
 
-
+Route::post('/logout', 'CoinadminAuth\LoginController@logout');
 Route::get('/home', 'AdminController@dashboard')->name('home');
 Route::get('/newsletter', 'AdminController@newsletter');
 Route::post('/send/newsletter', 'AdminController@send_newsletter');

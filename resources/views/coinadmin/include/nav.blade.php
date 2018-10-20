@@ -133,7 +133,7 @@
 					<span class="s-text">Queries</span>
 				</a>
 			</li>
-			
+
 			<li class="menu-title">Account</li>
 			<li>
 				<a href="{{ route('coinadmin.profile') }}" class="waves-effect  waves-light">
@@ -151,13 +151,13 @@
 			<li class="compact-hide">
 
 
-				<a href="{{ route('logout') }}"
+				<a href="{{ url('/coinadmin/logout') }}"
 				onclick="event.preventDefault();
 				document.getElementById('logout-form').submit();">
 				<span class="s-icon"><i class="ti-power-off"></i></span>Logout
 			</a>
 
-			<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+			<form id="logout-form" action="{{ url('/coinadmin/logout') }}" method="POST" style="display: none;">
 				{{ csrf_field() }}
 			</form>
 

@@ -20,7 +20,7 @@ Route::post('/contact_us', 'HomeController@contact_us');
 Route::group(['prefix' => 'coinadmin'], function () {
   Route::get('/login', 'CoinadminAuth\LoginController@showLoginForm')->name('login');
   Route::post('/login', 'CoinadminAuth\LoginController@login');
-  Route::post('/logout', 'CoinadminAuth\LoginController@logout')->name('logout');
+  
 
   Route::get('/register', 'CoinadminAuth\RegisterController@showRegistrationForm')->name('register');
   Route::post('/register', 'CoinadminAuth\RegisterController@register');
