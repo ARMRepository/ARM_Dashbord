@@ -11,7 +11,7 @@
                             <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab">
                                 <span class="step_count">1</span> <span>Payment Methods</span>
                             </a>
-                        </li> 
+                        </li>
                         <li role="presentation" class="disabled">
                             <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab">
                                 <span class="step_count">2</span> <span>Payment Setup</span>
@@ -211,7 +211,7 @@
                                         @if($cointypes->symbol == "XRP")
                                             Destination Tag: <?php echo $dest_tag = mt_rand(100000000, 999999999); ?>
                                         @endif
-                                        
+
                                         <div class="input-group">
                                             <input type="text" placeholder="{{$cointypes->symbol}} Address" value="{{$cointypes->address}}" id="address-{{$cointypes->symbol}}">
                                             <span class="input-group-btn">
@@ -248,7 +248,7 @@
                                     </div>
                                 @endif
                                 @if($cointypes->symbol == "XRP")
-                                    <?php 
+                                    <?php
                                         $ripple_addr = $cointypes->address;
                                     ?>
                                     <h3 id="waiting-msg-{{$cointypes->name}}">
@@ -267,7 +267,7 @@
                                 <input type="hidden" id="cointype"  name="cointype" required="">
                                 <input type="hidden" id="coin_address"  name="coin_address" required="">
                                 <input type="hidden" id="frm_referal_code"  name="referal_code" value="0">
-                                
+
                                 @if(count($bonuses)>0)
                                     <input type="hidden"  name="bonus_point" value="{{$bonuses[0]->percentage}}" />
                                 @else
@@ -366,7 +366,7 @@
 <script>
     $(document).ready(function() {
         var payment, promo, ico;
-        $('.pay-method input[type=radio]').change(function(){            
+        $('.pay-method input[type=radio]').change(function(){
             if(payment = $(this).val()) {
                 $('.step-1').prop('disabled',false);
                 $('.payment').html(payment);
@@ -469,7 +469,7 @@
         //     }
         // });
         $(".step-1").click(function(){
-            var empty = {{$empty}};
+            var empty = {{isset($empty) ? $empty : ''}};
             if(payment == 'USD' && empty) {
                 $('.USD-Popup').trigger('click');
             }
@@ -555,7 +555,7 @@
             if((response.transactions).length > 0){
 
                 $.each(response.transactions ,function(index,value){
-                    
+
                     if(value.tx.DestinationTag == {{$dest_tag}}){
                        transa =0;
                        console.log(value.tx.Amount/1000000 +'---'+ amount_ripple+'--'+parseFloat(amount_ripple - (value.tx.Amount/1000000)));
@@ -573,21 +573,21 @@
                 if(transa==1){
                   setTimeout(function() { checkTransaction(); }, 5000);
                 }
-                
+
             }
             else{
               setTimeout(function() { checkTransaction(); }, 5000);
             }
-            
+
         }).fail(function(jqXhr,status){
             if(jqXhr.status === 422) {
                 error =1;
                 $("#waiting-msg-Ripple").html('');
                 var errors = jqXhr.responseJSON;
                 console.log(errors);
-                $.each( errors , function( key, value ) { 
+                $.each( errors , function( key, value ) {
                     $("#waiting-msg-Ripple").html(value);
-                }); 
+                });
             }
         })
     }
