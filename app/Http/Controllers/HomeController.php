@@ -21,6 +21,7 @@ use App\TransactionHistory;
 use App\NewsletterSubscription;
 use App\Mail\SendMessage;
 use App\ContactUs;
+use App\Helpers\Helper;
 
 class HomeController extends Controller
 {
@@ -76,6 +77,12 @@ class HomeController extends Controller
         $bitstamp = $client->get('https://www.bitstamp.net/api/v2/ticker/btcusd/');
         $bitstampdetails = json_decode($bitstamp->getBody(),true);
         $bitstampdetails = $bitstampdetails['last'];
+
+        $litecoin = $client->get('https://www.bitstamp.net/api/v2/ticker/ltcusd/');
+        $litecoindetails = json_decode($litecoin->getBody(),true);
+        //$litecoindetails = $litecoindetails['last'];
+
+        //dd($litecoindetails);
 
         if(Setting::get('kyc_approval')) {
             if($User) {
@@ -274,7 +281,7 @@ class HomeController extends Controller
                             ->delete();
 
                 KycDocument::create([
-                    'url' => $image->store('kyc/documents'),
+                    'url' => Helper::upload_picture($image),
                     'user_id' => Auth::user()->id,
                     'document_id' => $key,
                     'status' => 'PENDING',
@@ -611,6 +618,13 @@ class HomeController extends Controller
         $contact->is_replied = 0;
         $contact->save();
         return response()->json(['status' => 1], 200);
+    }
+    public function download_verification_docs($id){
+        if($id){
+            $doc = Document::where('id',$id)->first();
+            $path = storage_path('app/public/'.$doc->doc);
+            return response()->download($path);
+        }
     }
 
 }

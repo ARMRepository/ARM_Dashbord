@@ -11,7 +11,7 @@ header( 'Access-Control-Allow-Headers: Authorization, Content-Type' );
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/download_verification_docs/{id}', 'HomeController@download_verification_docs');
 Route::post('/contact/store/', 'HomeController@contact');
 Route::post('/check_subscription', 'HomeController@check_subscription');
 Route::post('/subscription', 'HomeController@add_subscription');
@@ -20,7 +20,7 @@ Route::post('/contact_us', 'HomeController@contact_us');
 Route::group(['prefix' => 'coinadmin'], function () {
   Route::get('/login', 'CoinadminAuth\LoginController@showLoginForm')->name('login');
   Route::post('/login', 'CoinadminAuth\LoginController@login');
-  
+
 
   Route::get('/register', 'CoinadminAuth\RegisterController@showRegistrationForm')->name('register');
   Route::post('/register', 'CoinadminAuth\RegisterController@register');

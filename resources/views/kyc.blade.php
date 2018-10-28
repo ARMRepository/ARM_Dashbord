@@ -88,6 +88,7 @@
                                     {{csrf_field()}}
                                     <!-- Settings Block Starts -->
                                     @foreach($Kyc as $kyc)
+
                                         <div class="set-block">
                                             <div class="form-group row">
                                                 <div class="col-sm-2">
@@ -105,9 +106,10 @@
                                                     <div class="kyc-demo-img bg-img" style="background-image: url({{img($kyc->image)}});"></div>
                                                 </div> -->
                                                 <div class="col-sm-4">
+                                                    <?php //echo '<pre>';print_r($kyc);?>
                                                     @if(isset($kyc->doc))
                                                         <h5 class="example-tit">Download</h5>
-                                                        <a href="{{img($kyc->doc)}}" target="_blank">Download</a>
+                                                        <a href="{{url('/download_verification_docs/'.$kyc->id)}}" target="_blank">Download</a>
                                                     @endif
                                                 </div>
                                             </div>

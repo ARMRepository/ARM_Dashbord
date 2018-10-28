@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Document;
+use App\Helpers\Helper;
 
 class DocumentResource extends Controller
 {
-   
+
 
 
     /**
@@ -55,18 +56,18 @@ class DocumentResource extends Controller
 
             if($request->hasFile('image')) {
                 $document['image'] = $request->image->store('documents');
-                
+
             }
 
             if($request->hasFile('doc')) {
                 $document['doc'] = $request->doc->store('documents');
-                
+
             }
 
             Document::create($document);
             return redirect()->route('coinadmin.document.index')->with('flash_success','Document Saved Successfully');
 
-        } 
+        }
 
         catch (Exception $e) {
             return back()->with('flash_error', 'Document Not Found');
@@ -113,6 +114,7 @@ class DocumentResource extends Controller
      */
     public function update(Request $request, $id)
     {
+        //dd($request->all());
         $this->validate($request, [
             'name' => 'required|max:255',
             'order' => 'required',
@@ -124,23 +126,25 @@ class DocumentResource extends Controller
 
         try {
             $Doc= Document::where('id',$id)->first();
-            
+
             $Doc->name = $request->name;
 
             if($request->hasFile('image')) {
+                //$Doc->image = Helper::upload_picture($request->image);//$request->image->store('documents');
                 $Doc->image = $request->image->store('documents');
             }
 
             if($request->hasFile('doc')) {
                 $Doc->doc = $request->doc->store('documents');
+                //$Doc->doc = Helper::upload_picture($request->doc);//$request->doc->store('documents');
             }
 
             $Doc->order = $request->order;
             $Doc->usa_accredited = $request->usa_accredited;
             $Doc->download = $request->download;
             $Doc->save();
-            return redirect()->route('coinadmin.document.index')->with('flash_success', 'Document Updated Successfully');    
-        } 
+            return redirect()->route('coinadmin.document.index')->with('flash_success', 'Document Updated Successfully');
+        }
 
         catch (Exception $e) {
             return back()->with('flash_error', 'Document Not Found');
@@ -158,7 +162,7 @@ class DocumentResource extends Controller
         try {
             Document::find($id)->delete();
             return back()->with('message', 'Document deleted successfully');
-        } 
+        }
         catch (Exception $e) {
             return back()->with('flash_error', 'Document Not Found');
         }
