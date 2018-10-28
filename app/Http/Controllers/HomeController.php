@@ -86,7 +86,7 @@ class HomeController extends Controller
 
         if(Setting::get('kyc_approval')) {
             if($User) {
-                return view('home',compact('cointype','bonuses','User','bitstampdetails','etherscandetails','xrpusddetails', 'accredited'));
+                return view('home',compact('cointype','bonuses','User','empty','bitstampdetails','etherscandetails','xrpusddetails', 'accredited'));
             } else {
                 return redirect('/kyc');
             }

@@ -469,7 +469,7 @@
         //     }
         // });
         $(".step-1").click(function(){
-            var empty = {{isset($empty) ? $empty : ''}};
+            var empty = {{$empty}};
             if(payment == 'USD' && empty) {
                 $('.USD-Popup').trigger('click');
             }
