@@ -4,7 +4,7 @@
     <div class="kyc-details">
         <div class="container">
 
-            <div class="transaction_balance">
+            <!-- <div class="transaction_balance">
                 <div class="section-title">
                     <h1>Request for Private placement Memorandum PPM Regulation D exemption</h1>
                 </div>
@@ -17,7 +17,7 @@
                         <button type="submit" class="btn btn-primary btn-info-full next-step">Submit</button>
                     </div>
                 </form>
-            </div>
+            </div> -->
 
             <div class="transaction_balance">
                 <div class="settings-content-wrap p-f-30">
@@ -108,8 +108,8 @@
                                                 <div class="col-sm-4">
                                                     <?php //echo '<pre>';print_r($kyc);?>
                                                     @if(isset($kyc->doc))
-                                                        <h5 class="example-tit">Download</h5>
-                                                        <a href="{{url('/download_verification_docs/'.$kyc->id)}}" target="_blank">Download</a>
+                                                        <!-- <h5 class="example-tit">Download</h5>
+                                                        <a href="{{url('/download_verification_docs/'.$kyc->id)}}" target="_blank">Download</a> -->
                                                     @endif
                                                 </div>
                                             </div>
